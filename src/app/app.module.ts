@@ -1,14 +1,15 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {NavbarModule} from "./navbar/navbar.module";
-import {TrainingModule} from "./training/training.module";
+import {AccountModule} from "./account/account.module";
 
 @NgModule({
     declarations: [AppComponent],
     imports: [
-        BrowserModule, NavbarModule, TrainingModule
+        BrowserModule, FormsModule, NavbarModule, AccountModule
     ],
     providers: [],
     bootstrap: [AppComponent]
