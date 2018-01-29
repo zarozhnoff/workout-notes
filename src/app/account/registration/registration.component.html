@@ -3,33 +3,39 @@
         <mat-card-content class="registration-card-content">
             <h2>Регистрация</h2>
 
-            <mat-form-field hideRequiredMarker="true" floatLabel="always">
-                <input [(ngModel)]="username" matInput placeholder="Введите имя пользователя" required>
+            <mat-form-field hideRequiredMarker="true" floatLabel="never">
+                <input [(ngModel)]="username" matInput placeholder="Введите имя пользователя">
             </mat-form-field>
 
-            <!--<mat-form-field hideRequiredMarker="true" floatLabel="always">-->
-                <!--<input [(ngModel)]="email" matInput placeholder="Введите email" type="email" required>-->
-            <!--</mat-form-field>-->
+            <mat-form-field hideRequiredMarker="true" floatLabel="never">
+                <input [(ngModel)]="email" matInput placeholder="Введите email" type="email">
+            </mat-form-field>
 
-            <!--<mat-form-field hideRequiredMarker="true" floatLabel="always">-->
-                <!--<input [(ngModel)]="password" matInput placeholder="Введите пароль" [type]="hide ? 'password' : 'text'" required>-->
-                <!--<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>-->
-            <!--</mat-form-field>-->
+            <mat-form-field hideRequiredMarker="true" floatLabel="never" hintLabel="Минимум 6 символов">
+                <input [(ngModel)]="password" matInput placeholder="Введите пароль"
+                       [type]="hidePassword ? 'password' : 'text'">
+                <mat-icon matSuffix (click)="changePasswordVisibility()">{{hidePassword ? 'visibility'
+                    :'visibility_off'}}
+                </mat-icon>
+            </mat-form-field>
 
-            <!--<mat-form-field hideRequiredMarker="true" floatLabel="always">-->
-                <!--<input [(ngModel)]="confirmPassword" (change)="onConfirmPasswordChanged()"-->
-                       <!--matInput placeholder="Повторите пароль" type="password" required>-->
-            <!--</mat-form-field>-->
+            <mat-form-field hideRequiredMarker="true" floatLabel="never">
+                <input [(ngModel)]="confirmPassword" (change)="onConfirmPasswordChanged()"
+                       matInput placeholder="Повторите пароль" type="password">
+            </mat-form-field>
 
-            <!--<div class="gender-container">-->
-                <!--<label>Пол:</label>-->
-                <!--<mat-radio-group>-->
-                    <!--<mat-radio-button value="male">Мужской</mat-radio-button>-->
-                    <!--<mat-radio-button value="female">Женский</mat-radio-button>-->
-                <!--</mat-radio-group>-->
-            <!--</div>-->
+            <div class="gender-container">
+                <label>Пол:</label>
+                <mat-radio-group>
+                    <mat-radio-button value="male" color="primary">Мужской</mat-radio-button>
+                    <mat-radio-button value="female" color="primary">Женский</mat-radio-button>
+                </mat-radio-group>
+            </div>
 
             <button mat-raised-button color="primary" class="register-button" (click)="register()">Регистрация</button>
+            <mat-progress-bar class="register-progress-bar" [class.hidden]="!isProcessing"
+                              mode="indeterminate">
+            </mat-progress-bar>
         </mat-card-content>
     </mat-card>
 </div>

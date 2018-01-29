@@ -6,14 +6,24 @@ import {Component} from '@angular/core';
     styleUrls: ['registration.component.css']
 })
 export class RegistrationComponent {
-    hide = true;
-    username:string;
-    email:string;
-    password:string;
-    confirmPassword:string;
+    hidePassword: boolean = true;
+    isProcessing: boolean = false;
+
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+
+    changePasswordVisibility() {
+        this.hidePassword = !this.hidePassword;
+    }
 
     register() {
-        alert("click");
+        this.isProcessing = true;
+        setTimeout(() => {
+                this.isProcessing = false;
+            },
+            5000);
     }
 
     onConfirmPasswordChanged() {
