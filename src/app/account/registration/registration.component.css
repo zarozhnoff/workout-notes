@@ -6,7 +6,7 @@
     height: 100%;
 }
 
-.registration-card-content {
+.registration-form {
     display: flex;
     flex-direction: column;
     justify-content: center;

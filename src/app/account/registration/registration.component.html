@@ -1,41 +1,50 @@
 <div class="registration-container">
     <mat-card>
-        <mat-card-content class="registration-card-content">
-            <h2>Регистрация</h2>
+        <mat-card-content>
+            <form class="registration-form" [formGroup]="registrationForm" novalidate>
+                <h2>Регистрация</h2>
 
-            <mat-form-field hideRequiredMarker="true" floatLabel="never">
-                <input [(ngModel)]="username" matInput placeholder="Введите имя пользователя">
-            </mat-form-field>
+                <mat-form-field hideRequiredMarker="true" floatLabel="never">
+                    <input formControlName="username" matInput placeholder="Введите имя пользователя">
+                    <mat-error>Имя пользователя обязательно</mat-error>
+                </mat-form-field>
 
-            <mat-form-field hideRequiredMarker="true" floatLabel="never">
-                <input [(ngModel)]="email" matInput placeholder="Введите email" type="email">
-            </mat-form-field>
+                <mat-form-field hideRequiredMarker="true" floatLabel="never">
+                    <input formControlName="email" matInput placeholder="Введите email" type="email">
+                    <mat-error>Некорректный email</mat-error>
+                </mat-form-field>
 
-            <mat-form-field hideRequiredMarker="true" floatLabel="never" hintLabel="Минимум 6 символов">
-                <input [(ngModel)]="password" matInput placeholder="Введите пароль"
-                       [type]="hidePassword ? 'password' : 'text'">
-                <mat-icon matSuffix (click)="changePasswordVisibility()">{{hidePassword ? 'visibility'
-                    :'visibility_off'}}
-                </mat-icon>
-            </mat-form-field>
+                <mat-form-field hideRequiredMarker="true" floatLabel="never" hintLabel="Минимум 6 символов">
+                    <input formControlName="password" placeholder="Введите пароль" (change)="onPasswordChanged()"
+                           [type]="hidePassword ? 'password' : 'text'" matInput>
+                    <mat-icon matSuffix (click)="changePasswordVisibility()" color="primary">
+                        {{hidePassword ? 'visibility':'visibility_off'}}
+                    </mat-icon>
+                </mat-form-field>
 
-            <mat-form-field hideRequiredMarker="true" floatLabel="never">
-                <input [(ngModel)]="confirmPassword" (change)="onConfirmPasswordChanged()"
-                       matInput placeholder="Повторите пароль" type="password">
-            </mat-form-field>
+                <mat-form-field hideRequiredMarker="true" floatLabel="never">
+                    <input formControlName="confirmPassword" (change)="onPasswordChanged()"
+                           matInput placeholder="Повторите пароль" type="password">
+                    <mat-icon matSuffix color="primary" *ngIf="confirmPassword.length > 0 && password == confirmPassword"
+                              title="Пароли совпадают">
+                        done
+                    </mat-icon>
+                    <mat-hint *ngIf="showPasswordsNoMatchError">Пароли не совпадают</mat-hint>
+                </mat-form-field>
 
-            <div class="gender-container">
-                <label>Пол:</label>
-                <mat-radio-group>
-                    <mat-radio-button value="male" color="primary">Мужской</mat-radio-button>
-                    <mat-radio-button value="female" color="primary">Женский</mat-radio-button>
-                </mat-radio-group>
-            </div>
+                <div class="gender-container">
+                    <label>Пол:</label>
+                    <mat-radio-group [disabled]="isProcessing">
+                        <mat-radio-button value="male" color="primary" checked>Мужской</mat-radio-button>
+                        <mat-radio-button value="female" color="primary">Женский</mat-radio-button>
+                    </mat-radio-group>
+                </div>
 
-            <button mat-raised-button color="primary" class="register-button" (click)="register()">Регистрация</button>
-            <mat-progress-bar class="register-progress-bar" [class.hidden]="!isProcessing"
-                              mode="indeterminate">
-            </mat-progress-bar>
+                <button mat-raised-button color="primary" class="register-button" (click)="register()">Регистрация</button>
+                <mat-progress-bar class="register-progress-bar" [class.hidden]="!isProcessing"
+                                  mode="indeterminate">
+                </mat-progress-bar>
+            </form>
         </mat-card-content>
     </mat-card>
 </div>

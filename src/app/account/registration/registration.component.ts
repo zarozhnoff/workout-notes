@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
     selector: 'wn-registration',
@@ -6,13 +7,23 @@ import {Component} from '@angular/core';
     styleUrls: ['registration.component.css']
 })
 export class RegistrationComponent {
-    hidePassword: boolean = true;
-    isProcessing: boolean = false;
+    hidePassword:boolean = true;
+    isProcessing:boolean = false;
+    showPasswordsNoMatchError:boolean = false;
+    registrationForm:FormGroup;
 
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+    password:string = "";
+    confirmPassword:string = "";
+
+    constructor() {
+        this.registrationForm = new FormGroup({
+            "username": new FormControl("", [Validators.required]),
+            "email": new FormControl("", [Validators.required, Validators.email]),
+            "password": new FormControl("", [Validators.minLength(6), Validators.required]),
+            "confirmPassword": new FormControl("", [Validators.minLength(6), Validators.required])
+        });
+    }
+
 
     changePasswordVisibility() {
         this.hidePassword = !this.hidePassword;
@@ -20,15 +31,19 @@ export class RegistrationComponent {
 
     register() {
         this.isProcessing = true;
+        this.registrationForm.disable();
         setTimeout(() => {
                 this.isProcessing = false;
+                this.registrationForm.enable();
             },
             5000);
     }
 
-    onConfirmPasswordChanged() {
-        if (this.password != this.confirmPassword) {
-            alert("password");
+    onPasswordChanged() {
+        if (this.confirmPassword.length == 0) {
+            this.showPasswordsNoMatchError = false;
+        } else {
+            this.showPasswordsNoMatchError = this.password != this.confirmPassword;
         }
     }
 }

@@ -1,5 +1,7 @@
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
@@ -16,8 +18,9 @@ import {UserBarComponent} from "./userbar/userbar.component";
 
 @NgModule({
     declarations: [LoginComponent, RegistrationComponent, UserBarComponent],
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule, MatIconModule,
-              MatRadioModule, MatCheckboxModule, MatCardModule, MatButtonModule, MatProgressBarModule],
+    imports: [CommonModule, BrowserModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,
+              BrowserAnimationsModule, MatIconModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatButtonModule,
+              MatProgressBarModule],
     providers: [],
     exports: [RegistrationComponent]
 })
