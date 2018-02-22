@@ -1,50 +1,46 @@
-<div class="registration-container">
-    <mat-card>
-        <mat-card-content>
-            <form class="registration-form" [formGroup]="registrationForm" novalidate>
-                <h2>Регистрация</h2>
+<div class="registration-form-container">
+    <form #registrationForm="ngForm" class="registration-form">
+        <div class="text-center">
+            <img src="assets/gym-icon.png" alt="">
+            <h1 class="h3 font-weight-normal">Регистрация</h1>
+        </div>
 
-                <mat-form-field hideRequiredMarker="true" floatLabel="never">
-                    <input formControlName="username" matInput placeholder="Введите имя пользователя">
-                    <mat-error>Имя пользователя обязательно</mat-error>
-                </mat-form-field>
+        <div class="form-label-group">
+            <label for="username">Имя пользователя</label>
+            <input [(ngModel)]="username" type="text" id="username" name="username" class="form-control" required autofocus>
+        </div>
 
-                <mat-form-field hideRequiredMarker="true" floatLabel="never">
-                    <input formControlName="email" matInput placeholder="Введите email" type="email">
-                    <mat-error>Некорректный email</mat-error>
-                </mat-form-field>
+        <div class="form-label-group">
+            <label for="email">Email address</label>
+            <input [(ngModel)]="email" type="email" id="email" name="email" class="form-control"
+                   required pattern="\S+@[a-z]+.[a-z]+">
+        </div>
 
-                <mat-form-field hideRequiredMarker="true" floatLabel="never" hintLabel="Минимум 6 символов">
-                    <input formControlName="password" placeholder="Введите пароль" (change)="onPasswordChanged()"
-                           [type]="hidePassword ? 'password' : 'text'" matInput>
-                    <mat-icon matSuffix (click)="changePasswordVisibility()" color="primary">
-                        {{hidePassword ? 'visibility':'visibility_off'}}
-                    </mat-icon>
-                </mat-form-field>
+        <div class="form-label-group">
+            <label for="password">Пароль</label>
+            <input [(ngModel)]="password" type="password" id="password" name="password" class="form-control"
+                   minlength="6" required>
+        </div>
 
-                <mat-form-field hideRequiredMarker="true" floatLabel="never">
-                    <input formControlName="confirmPassword" (change)="onPasswordChanged()"
-                           matInput placeholder="Повторите пароль" type="password">
-                    <mat-icon matSuffix color="primary" *ngIf="confirmPassword.length > 0 && password == confirmPassword"
-                              title="Пароли совпадают">
-                        done
-                    </mat-icon>
-                    <mat-hint *ngIf="showPasswordsNoMatchError">Пароли не совпадают</mat-hint>
-                </mat-form-field>
+        <div class="form-label-group">
+            <label for="confirmPassword">Повторите пароль</label>
+            <input [(ngModel)]="confirmPassword" type="password" id="confirmPassword" name="confirmPassword"
+                   class="form-control" minlength="6" required>
+        </div>
 
-                <div class="gender-container">
-                    <label>Пол:</label>
-                    <mat-radio-group [disabled]="isProcessing">
-                        <mat-radio-button value="male" color="primary" checked>Мужской</mat-radio-button>
-                        <mat-radio-button value="female" color="primary">Женский</mat-radio-button>
-                    </mat-radio-group>
-                </div>
+        <div class="d-flex flex-row">
+            <label>Пол: </label>
+            <div class="ml-2">
+                <input type="radio" [checked]="isMaleSelected" id="male" name="gender" value="male">
+                <label for="male">Мужской</label>
+            </div>
 
-                <button mat-raised-button color="primary" class="register-button" (click)="register()">Регистрация</button>
-                <mat-progress-bar class="register-progress-bar" [class.hidden]="!isProcessing"
-                                  mode="indeterminate">
-                </mat-progress-bar>
-            </form>
-        </mat-card-content>
-    </mat-card>
+            <div class="ml-2">
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Женский</label>
+            </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+    </form>
 </div>

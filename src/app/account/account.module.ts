@@ -1,26 +1,13 @@
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatIconModule} from '@angular/material/icon';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressBarModule} from '@angular/material';
-import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
-import {UserBarComponent} from "./userbar/userbar.component";
 
 @NgModule({
-    declarations: [LoginComponent, RegistrationComponent, UserBarComponent],
-    imports: [CommonModule, BrowserModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,
-              BrowserAnimationsModule, MatIconModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatButtonModule,
-              MatProgressBarModule],
+    declarations: [RegistrationComponent],
+    imports: [CommonModule, BrowserModule, FormsModule],
     providers: [],
     exports: [RegistrationComponent]
 })
