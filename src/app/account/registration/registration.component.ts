@@ -6,13 +6,13 @@ import {Component} from '@angular/core';
     styleUrls: ['registration.component.css']
 })
 export class RegistrationComponent {
-    isProcessing:boolean = false;
-    showPasswordsNoMatchError:boolean = false;
-    username:string = "";
-    email:string = "";
-    password:string = "";
-    confirmPassword:string = "";
-    isMaleSelected:boolean = true;
+    isProcessing: boolean = false;
+    showPasswordsNoMatchError: boolean = false;
+    username: string = "";
+    email: string = "";
+    password: string = "";
+    confirmPassword: string = "";
+    isMaleSelected: boolean = true;
 
 
     constructor() {
@@ -32,6 +32,24 @@ export class RegistrationComponent {
             this.showPasswordsNoMatchError = false;
         } else {
             this.showPasswordsNoMatchError = this.password != this.confirmPassword;
+        }
+    }
+
+    onFocused(htmlelement: HTMLInputElement) {
+        htmlelement.classList.remove("is-valid");
+        htmlelement.classList.remove("is-invalid");
+
+    }
+
+    onFocusedOut(htmlelement: HTMLInputElement) {
+        if (htmlelement.validity.valid) {
+            htmlelement.classList.add("is-valid");
+            htmlelement.classList.remove("is-invalid");
+        }
+        else {
+
+            htmlelement.classList.add("is-invalid");
+            htmlelement.classList.remove("is-valid");
         }
     }
 }
