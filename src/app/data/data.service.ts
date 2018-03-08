@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core/core";
-import {Muscle} from "../entities/muscle";
-import {Training} from "../entities/training";
+import {Muscle} from "./entities/muscle";
+import {Training} from "./entities/training";
 
 @Injectable()
 export class DataService {
