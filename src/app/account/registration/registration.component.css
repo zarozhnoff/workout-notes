@@ -1,4 +1,4 @@
-.registration-form-container{
+.registration-form-container {
     display: flex;
     justify-content: center;
     height: 100%;
@@ -21,3 +21,6 @@
     color: #495057;
 }
 
+.invalid-feedback > span {
+    display: block;
+}

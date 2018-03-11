@@ -3,15 +3,14 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
-import {NavbarModule} from "./navbar/navbar.module";
-import {AccountModule} from "./account/account.module";
+import {NavbarComponent} from "./navbar/navbar.component";
 import {AppRoutingModule} from "./app-router.module";
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, NavbarComponent],
     imports: [
         BrowserModule, FormsModule,
-        AppRoutingModule, NavbarModule, AccountModule
+        AppRoutingModule
     ],
     providers: [],
     bootstrap: [AppComponent]

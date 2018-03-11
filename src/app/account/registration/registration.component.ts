@@ -7,8 +7,6 @@ import {Component} from '@angular/core';
 })
 export class RegistrationComponent {
     isProcessing: boolean = false;
-    showPasswordsNoMatchError: boolean = false;
-    username: string = "";
     email: string = "";
     password: string = "";
     confirmPassword: string = "";
@@ -19,37 +17,20 @@ export class RegistrationComponent {
     }
 
 
-    register() {
+    public onConfirmPasswordChanged(input: HTMLInputElement): void {
+        if (this.password !== this.confirmPassword && this.password.length > 0 && this.confirmPassword.length > 0) {
+            input.setCustomValidity("Пароли не совпадают");
+        }
+        else {
+            input.setCustomValidity('');
+        }
+    }
+
+    public register(): void {
         this.isProcessing = true;
         setTimeout(() => {
                 this.isProcessing = false;
             },
             5000);
-    }
-
-    onPasswordChanged() {
-        if (this.confirmPassword.length == 0) {
-            this.showPasswordsNoMatchError = false;
-        } else {
-            this.showPasswordsNoMatchError = this.password != this.confirmPassword;
-        }
-    }
-
-    onFocused(htmlelement: HTMLInputElement) {
-        htmlelement.classList.remove("is-valid");
-        htmlelement.classList.remove("is-invalid");
-
-    }
-
-    onFocusedOut(htmlelement: HTMLInputElement) {
-        if (htmlelement.validity.valid) {
-            htmlelement.classList.add("is-valid");
-            htmlelement.classList.remove("is-invalid");
-        }
-        else {
-
-            htmlelement.classList.add("is-invalid");
-            htmlelement.classList.remove("is-valid");
-        }
     }
 }

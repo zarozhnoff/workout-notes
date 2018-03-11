@@ -1,14 +1,13 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import {SharedModule} from "../shared/shared.module";
 
 import {RegistrationComponent} from "./registration/registration.component";
 import {AccountRoutingModule} from "./account-router.module";
+import {SignInComponent} from "./signin/signin.component";
 
 @NgModule({
-    imports: [CommonModule, BrowserModule, FormsModule, AccountRoutingModule],
-    declarations: [RegistrationComponent]
+    imports: [SharedModule, AccountRoutingModule],
+    declarations: [RegistrationComponent, SignInComponent]
 })
 export class AccountModule {
 }

@@ -6,50 +6,63 @@
         </div>
 
         <div class="form-label-group">
-            <label for="username">Имя пользователя*</label>
-            <input [(ngModel)]="username" type="text" id="username" name="username" class="form-control" #usernameInput="ngModel"
-                   [ngClass]="{'is-valid':usernameInput.valid && usernameInput.touched}" required autofocus>
-        </div>
-
-        <div class="form-label-group">
             <label for="email">Email адрес*</label>
-            <input [(ngModel)]="email" type="email" id="email" name="email" class="form-control" required
-                   (focus)="onFocused(emailInput)" (focusout)="onFocusedOut(emailInput)" #emailInput
-                   pattern="\S+@[a-z]+.[a-z]+">
+            <input [(ngModel)]="email" type="email" id="email" name="email" class="form-control" #emailInput
+                   required pattern="\S+@[a-z]+.[a-z]+" showInputValidation errorsElementId="emailErrors"
+                   [disabled]="isProcessing">
+            <div class="invalid-feedback" id="emailErrors">
+                <span *ngIf="emailInput.validity.valueMissing">Введите email</span>
+                <span *ngIf="emailInput.validity.patternMismatch">Введите валидный email</span>
+            </div>
         </div>
 
         <div class="form-label-group">
             <label for="password">Пароль*</label>
             <input [(ngModel)]="password" type="password" id="password" name="password" class="form-control"
-                   #passwordInput (focus)="onFocused(passwordInput)" (focusout)="onFocusedOut(passwordInput)"
-                   minlength="6" required>
+                   #passwordInput required minlength="6" maxlength="20" pattern="^[a-zA-Z0-9]+$" showInputValidation
+                   errorsElementId="passwordErrors" [disabled]="isProcessing">
+            <div class="invalid-feedback" id="passwordErrors">
+                <span *ngIf="passwordInput.validity.valueMissing">Введите пароль</span>
+                <span *ngIf="passwordInput.validity.tooShort">Пароль слишком короткий</span>
+                <span *ngIf="passwordInput.validity.tooLong">Пароль слишком длинный</span>
+                <span *ngIf="passwordInput.validity.patternMismatch">Вы ввели неразрешённые символы</span>
+            </div>
+
             <small class="form-text text-muted">
-                Ваш пароль должен быть от 6 до 20 символов и не содержать специальных символов и пробелов.
+                Ваш пароль должен быть от 6 до 20 символов и не содержать специальных символов или пробелов.
             </small>
         </div>
 
         <div class="form-label-group">
             <label for="confirmPassword">Повторите пароль*</label>
-            <input [(ngModel)]="confirmPassword" type="password" id="confirmPassword" name="confirmPassword" required
-                   #confirmPasswordInput (focus)="onFocused(confirmPasswordInput)" minlength="6"
-                   (focusout)="onFocusedOut(confirmPasswordInput)" class="form-control">
+            <input [(ngModel)]="confirmPassword" type="password" id="confirmPassword" name="confirmPassword"
+                   class="form-control" #confirmPasswordInput required minlength="6" maxlength="20"
+                   pattern="^[a-zA-Z0-9]+$" showInputValidation errorsElementId="confirmPasswordErrors"
+                   (change)="onConfirmPasswordChanged(confirmPasswordInput)" [disabled]="isProcessing">
+            <div class="invalid-feedback" id="confirmPasswordErrors">
+                <span *ngIf="password != confirmPassword">Пароли не совпадают</span>
+            </div>
         </div>
 
         <div>
             <label>Пол: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" [checked]="isMaleSelected" id="male" name="gender"
-                       value="male">
+                <input class="form-check-input" type="radio" id="male" name="gender" [checked]="isMaleSelected"
+                       [disabled]="isProcessing">
                 <label class="form-check-label" for="male">Мужской</label>
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="female" name="gender" value="female">
+                <input class="form-check-input" type="radio" id="female" name="gender" [disabled]="isProcessing">
                 <label class="form-check-label" for="female">Женский</label>
             </div>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit"
-                onclick="register()">Регистрация</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!registrationForm.valid"
+                (click)="register()">Регистрация
+        </button>
+        <div class="progress mt-1" [ngClass]="{'invisible':!isProcessing}">
+            <div class="progress-bar progress-bar-striped progress-bar-animated w-100"></div>
+        </div>
     </form>
 </div>
