@@ -6,21 +6,62 @@
         </div>
 
         <div class="form-label-group">
+            <label for="username">Имя пользователя*</label>
+            <div class="input-group">
+                <input [(ngModel)]="userName" type="text" id="username" name="username" class="form-control"
+                       #usernameInput #usenameModel="ngModel" required minlength="3" maxlength="20"
+                       validation-errors [errorsId]="'usernameErrors'" (focusout)="onUsernameFocusedOut(usernameInput)">
+
+                <div class="input-group-append" *ngIf="isCurrentUsernameChecked || isCheckingUsernameFree">
+                    <span class="input-group-text">
+                        <span class="fas fa-circle-notch fa-spin" *ngIf="isCheckingUsernameFree"></span>
+                        <span class="fas fa-check text-success" title="Имя пользователя свободно"
+                              *ngIf="isCurrentUsernameChecked && isCurrentUsernameFree"></span>
+                        <span class="fas fa-exclamation text-danger" title="Имя пользователя уже занято"
+                              *ngIf="isCurrentUsernameChecked && !isCurrentUsernameFree"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="invalid-feedback" id="usernameErrors">
+                <span *ngIf="usernameInput.validity.valueMissing">Введите имя пользователя</span>
+                <span *ngIf="usernameInput.validity.tooShort">Имя слишком короткое</span>
+                <span *ngIf="usernameInput.validity.tooLong">Имя сликом длинное</span>
+                <span *ngIf="isCurrentUsernameChecked && !isCurrentUsernameFree">Имя пользователя уже занято</span>
+            </div>
+        </div>
+
+        <div class="form-label-group">
             <label for="email">Email адрес*</label>
-            <input [(ngModel)]="email" type="email" id="email" name="email" class="form-control" #emailInput
-                   required pattern="\S+@[a-z]+.[a-z]+" showInputValidation errorsElementId="emailErrors"
-                   [disabled]="isProcessing">
+
+            <div class="input-group">
+                <input [(ngModel)]="email" type="email" id="email" name="email" class="form-control" #emailInput
+                       required pattern="\S+@[a-z]+.[a-z]+" validation-errors [errorsId]="'emailErrors'"
+                       (focusout)="onEmailFocusedOut(emailInput)">
+
+                <div class="input-group-append" *ngIf="isCurrentEmailChecked || isCheckingEmailFree">
+                    <span class="input-group-text">
+                        <span class="fas fa-circle-notch fa-spin" *ngIf="isCheckingEmailFree"></span>
+                        <span class="fas fa-check text-success" title="Email свободен"
+                              *ngIf="isCurrentEmailChecked && isCurrentEmailFree"></span>
+                        <span class="fas fa-exclamation text-danger" title="Email уже занят"
+                              *ngIf="isCurrentEmailChecked && !isCurrentEmailFree"></span>
+                    </span>
+                </div>
+            </div>
+
             <div class="invalid-feedback" id="emailErrors">
                 <span *ngIf="emailInput.validity.valueMissing">Введите email</span>
                 <span *ngIf="emailInput.validity.patternMismatch">Введите валидный email</span>
+                <span *ngIf="isCurrentEmailChecked && !isCurrentEmailFree">Email уже занят</span>
             </div>
         </div>
 
         <div class="form-label-group">
             <label for="password">Пароль*</label>
             <input [(ngModel)]="password" type="password" id="password" name="password" class="form-control"
-                   #passwordInput required minlength="6" maxlength="20" pattern="^[a-zA-Z0-9]+$" showInputValidation
-                   errorsElementId="passwordErrors" [disabled]="isProcessing">
+                   #passwordInput required minlength="6" maxlength="20" pattern="^[a-zA-Z0-9]+$"
+                   validation-errors [errorsId]="'passwordErrors'">
             <div class="invalid-feedback" id="passwordErrors">
                 <span *ngIf="passwordInput.validity.valueMissing">Введите пароль</span>
                 <span *ngIf="passwordInput.validity.tooShort">Пароль слишком короткий</span>
@@ -37,8 +78,8 @@
             <label for="confirmPassword">Повторите пароль*</label>
             <input [(ngModel)]="confirmPassword" type="password" id="confirmPassword" name="confirmPassword"
                    class="form-control" #confirmPasswordInput required minlength="6" maxlength="20"
-                   pattern="^[a-zA-Z0-9]+$" showInputValidation errorsElementId="confirmPasswordErrors"
-                   (change)="onConfirmPasswordChanged(confirmPasswordInput)" [disabled]="isProcessing">
+                   pattern="^[a-zA-Z0-9]+$" validation-errors [errorsId]="'confirmPasswordErrors'"
+                   (change)="onConfirmPasswordChanged(confirmPasswordInput)">
             <div class="invalid-feedback" id="confirmPasswordErrors">
                 <span *ngIf="password != confirmPassword">Пароли не совпадают</span>
             </div>
@@ -48,21 +89,24 @@
             <label>Пол: </label>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" id="male" name="gender" [checked]="isMaleSelected"
-                       [disabled]="isProcessing">
+                       (change)="onGenderChanged(true)">
                 <label class="form-check-label" for="male">Мужской</label>
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="female" name="gender" [disabled]="isProcessing">
+                <input class="form-check-input" type="radio" id="female" name="gender" [checked]="!isMaleSelected"
+                       (change)="onGenderChanged(false)">
                 <label class="form-check-label" for="female">Женский</label>
             </div>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!registrationForm.valid"
+        <button class="btn btn-lg btn-primary btn-block" type="submit"
+                [disabled]="!registrationForm.valid || isProcessing"
                 (click)="register()">Регистрация
         </button>
         <div class="progress mt-1" [ngClass]="{'invisible':!isProcessing}">
             <div class="progress-bar progress-bar-striped progress-bar-animated w-100"></div>
         </div>
+        <p class="alert alert-danger" *ngIf="registrationError">{{registrationError}}</p>
     </form>
 </div>

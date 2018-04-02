@@ -15,7 +15,8 @@
       "main": "main.ts",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "styles.css"],
+        "styles.css"
+      ],
       "polyfills": "polyfills.ts",
       "tsconfig": "tsconfig.app.json",
       "prefix": "app",
@@ -30,8 +31,8 @@
   "defaults": {
     "styleExt": "css",
     "component": {
-      "inlineStyle": true,
-      "inlineTemplate": true,
+      "inlineStyle": false,
+      "inlineTemplate": false,
       "spec": false
     }
   }

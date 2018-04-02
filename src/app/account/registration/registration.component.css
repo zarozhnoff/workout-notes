@@ -24,3 +24,15 @@
 .invalid-feedback > span {
     display: block;
 }
+
+.input-group-text {
+    background-color: transparent;
+}
+
+.ng-touched.ng-invalid:not(:focus) {
+    border-color: red;
+}
+
+.ng-touched.ng-valid:not(:focus) {
+    border-color: green;
+}

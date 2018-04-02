@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {ShowInputValidationDirective} from "./show-input-validation.directive";
+import {ValidationErrorsDirective} from "./validation-errors.directive";
 
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [ShowInputValidationDirective],
-    exports: [CommonModule, FormsModule, ShowInputValidationDirective]
+    declarations: [ValidationErrorsDirective],
+    exports: [CommonModule, FormsModule, ValidationErrorsDirective]
 })
 export class SharedModule {
 }
